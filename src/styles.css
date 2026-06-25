@@ -246,14 +246,10 @@ a {
   gap: 13px;
 }
 .brand__mark {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
   flex: none;
-  background: linear-gradient(90deg, var(--text) 0 50%, transparent 50% 100%),
-    var(--surface);
-  border: 2px solid var(--text);
-  box-shadow: var(--shadow-sm);
+  display: block;
 }
 .brand__name {
   font-size: 22px;

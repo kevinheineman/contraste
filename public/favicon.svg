@@ -1,5 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Contraste">
-  <rect width="64" height="64" rx="14" fill="#3b5bd9" />
-  <circle cx="32" cy="32" r="17" fill="#ffffff" />
-  <path d="M32 15a17 17 0 0 0 0 34z" fill="#11181c" />
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Contraste">
+  <defs>
+    <clipPath id="l"><rect width="256" height="512" /></clipPath>
+    <clipPath id="r"><rect x="256" width="256" height="512" /></clipPath>
+  </defs>
+  <g clip-path="url(#l)">
+    <circle cx="256" cy="256" r="256" fill="#F2474D" />
+    <path fill="#FFFFFF" fill-rule="evenodd" d="M234 96L278 96L394 430L320 430L300 346L212 346L192 430L118 430ZM256 158L289 298L223 298Z" />
+  </g>
+  <g clip-path="url(#r)">
+    <circle cx="256" cy="256" r="256" fill="#AC1D27" />
+    <path fill="#C49A9E" fill-rule="evenodd" d="M234 96L278 96L394 430L320 430L300 346L212 346L192 430L118 430ZM256 158L289 298L223 298Z" />
+  </g>
 </svg>

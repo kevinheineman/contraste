@@ -156,7 +156,7 @@ export default function App() {
 
       <header className="site-header">
         <div className="brand">
-          <span className="brand__mark" aria-hidden="true" />
+          <img className="brand__mark" src="/favicon.svg" alt="" width="36" height="36" />
           <div>
             <h1 className="brand__name">Contraste</h1>
             <p className="brand__tag">Accessible color, verified.</p>
