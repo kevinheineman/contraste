@@ -115,6 +115,13 @@ export default function PairDetail({ palette, selected, onApplyFix, algorithm, l
         <Criteria algorithm={algorithm} value={value} />
       </div>
 
+      {algorithm === 'wcag' && (
+        <p className="detail__note">
+          Section 508 adopts WCAG 2.0 AA — so the AA result above is also your
+          Section 508 result.
+        </p>
+      )}
+
       {showFix && (
         <div className="detail__fixes">
           <h3 className="detail__subhead">

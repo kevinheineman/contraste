@@ -15,7 +15,7 @@ Most contrast checkers test one pair at a time. Real palettes have _n²_ pairs, 
 ## Features
 
 - **Contrast matrix** — every foreground × background pair with its exact contrast and pass-fail flags. The sample text is rendered _in the actual colors_, so you see legibility, not just a number.
-- **Two algorithms** — switch between **WCAG 2.1** ratios (AA, AAA, UI 3:1, and **Section 508**, which incorporates WCAG 2.0 AA by reference) and **APCA** — the perceptual-lightness method (Lc) that is the candidate for WCAG 3. WCAG 2's ratio misjudges plenty of pairs, especially on dark UI; APCA is surfaced as a labelled preview.
+- **Two algorithms** — switch between **WCAG 2.1** ratios (AA, AAA, and the 3:1 UI threshold) and **APCA** — the perceptual-lightness method (Lc) that is the candidate for WCAG 3. WCAG 2's ratio misjudges plenty of pairs, especially on dark UI; APCA is surfaced as a labelled preview. (**Section 508** adopts WCAG 2.0 AA, so it's the same 4.5:1 bar — the inspector notes this rather than duplicating it as a level.)
 - **Pair inspector** — select any cell for a live UI preview and the full conformance checklist for the active algorithm.
 - **Nearest accessible fix** — when a pair fails, Contraste searches OKLCH lightness for the _smallest_ change to either color that clears AA, preserving hue and chroma. One click applies it.
 - **Vision simulation with severity** — preview protan / deutan / tritan deficiency with a **0–100% severity slider** (most color-blind people are partial, not fully dichromatic), plus an **achromatopsia / grayscale** mode.

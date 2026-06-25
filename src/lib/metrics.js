@@ -19,8 +19,6 @@ const L = {
   aaaNormal: { id: 'aaaNormal', label: 'AAA · Normal text', short: 'AAA normal', req: '7:1', test: (r) => r >= 7 },
   aaaLarge: { id: 'aaaLarge', label: 'AAA · Large text', short: 'AAA large', req: '4.5:1', test: (r) => r >= 4.5 },
   ui: { id: 'ui', label: 'UI & graphics', short: 'UI & graphics', req: '3:1', test: (r) => r >= 3 },
-  // Section 508 incorporates WCAG 2.0 AA by reference, so its contrast bar is AA (4.5:1).
-  p508: { id: 'p508', label: 'Section 508 · WCAG 2.0 AA', short: 'Section 508', req: '4.5:1', test: (r) => r >= 4.5 },
   lc90: { id: 'lc90', label: 'Lc 90 · fluent text', short: 'Lc 90', req: 'Lc 90', test: (v) => v >= 90 },
   lc75: { id: 'lc75', label: 'Lc 75 · body text', short: 'Lc 75', req: 'Lc 75', test: (v) => v >= 75 },
   lc60: { id: 'lc60', label: 'Lc 60 · content', short: 'Lc 60', req: 'Lc 60', test: (v) => v >= 60 },
@@ -30,13 +28,13 @@ const L = {
 
 // Levels offered in the "pass level" picker (the useful few).
 export const LEVELS = {
-  wcag: [L.aaNormal, L.aaLarge, L.aaaNormal, L.ui, L.p508],
+  wcag: [L.aaNormal, L.aaLarge, L.aaaNormal, L.ui],
   apca: [L.lc90, L.lc75, L.lc60, L.lc45, L.lc30],
 };
 
 // Fuller list shown in the inspector checklist.
 export const CRITERIA = {
-  wcag: [L.aaNormal, L.aaLarge, L.aaaNormal, L.aaaLarge, L.ui, L.p508],
+  wcag: [L.aaNormal, L.aaLarge, L.aaaNormal, L.aaaLarge, L.ui],
   apca: [L.lc90, L.lc75, L.lc60, L.lc45, L.lc30],
 };
 
