@@ -53,7 +53,7 @@ function ColorRow({ color, onUpdate, onRemove, canRemove }) {
   );
 }
 
-export default function PaletteEditor({ palette, onUpdate, onRemove, onAdd, onImport, max }) {
+export default function PaletteEditor({ palette, onUpdate, onRemove, onAdd, onImport }) {
   const [importText, setImportText] = useState('');
   const [importOpen, setImportOpen] = useState(false);
   const parsed = parseColorList(importText);
@@ -70,9 +70,7 @@ export default function PaletteEditor({ palette, onUpdate, onRemove, onAdd, onIm
     <div className="panel palette">
       <div className="panel__head">
         <h2 className="panel__title">Palette</h2>
-        <span className="panel__count mono">
-          {palette.length}/{max}
-        </span>
+        <span className="panel__count mono">{palette.length}</span>
       </div>
 
       <ul className="palette__list">
@@ -88,12 +86,7 @@ export default function PaletteEditor({ palette, onUpdate, onRemove, onAdd, onIm
       </ul>
 
       <div className="palette__actions">
-        <button
-          type="button"
-          className="btn btn--ghost"
-          onClick={onAdd}
-          disabled={palette.length >= max}
-        >
+        <button type="button" className="btn btn--ghost" onClick={onAdd}>
           <Icon name="plus" /> Add color
         </button>
         <button

@@ -10,7 +10,6 @@ import { DEFAULT_PALETTE, SAMPLES } from './lib/palettes.js';
 import { encodePalette, decodePalette } from './lib/url.js';
 import { toHex, parseHex } from './lib/color.js';
 
-const MAX_COLORS = 14;
 const ADD_COLORS = ['#6B7280', '#0EA5E9', '#16A34A', '#D946EF', '#F59E0B', '#EF4444'];
 
 let seq = 0;
@@ -19,7 +18,7 @@ const newId = () => `c${seq++}`;
 function initialPalette() {
   if (typeof window !== 'undefined') {
     const fromUrl = decodePalette(window.location.hash);
-    if (fromUrl && fromUrl.length >= 2) return fromUrl.slice(0, MAX_COLORS);
+    if (fromUrl && fromUrl.length >= 2) return fromUrl;
   }
   return DEFAULT_PALETTE;
 }
@@ -101,7 +100,6 @@ export default function App() {
 
   const addColor = useCallback(() => {
     setPalette((p) => {
-      if (p.length >= MAX_COLORS) return p;
       return [
         ...p,
         {
@@ -114,9 +112,11 @@ export default function App() {
   }, []);
 
   const importColors = useCallback((list) => {
-    const next = list
-      .slice(0, MAX_COLORS)
-      .map((c) => ({ id: newId(), name: c.name, hex: toHex(parseHex(c.hex)) }));
+    const next = list.map((c) => ({
+      id: newId(),
+      name: c.name,
+      hex: toHex(parseHex(c.hex)),
+    }));
     if (next.length >= 2) setPalette(next);
     else if (next.length === 1)
       setPalette([next[0], { ...DEFAULT_PALETTE[2], id: newId() }]);
@@ -192,7 +192,6 @@ export default function App() {
               onRemove={removeColor}
               onAdd={addColor}
               onImport={importColors}
-              max={MAX_COLORS}
             />
             <Legend codeBy={codeBy} />
           </aside>

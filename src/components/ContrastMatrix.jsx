@@ -1,8 +1,9 @@
+import { memo } from 'react';
 import { simulate } from '../lib/colorblind.js';
 import { contrastRatio, evaluate, formatRatio } from '../lib/contrast.js';
 import PassFlag from './PassFlag.jsx';
 
-function Head({ color, cvd, scope }) {
+const Head = memo(function Head({ color, cvd, scope }) {
   return (
     <th scope={scope} className={`matrix__head matrix__head--${scope}`}>
       <span
@@ -14,7 +15,36 @@ function Head({ color, cvd, scope }) {
       <span className="matrix__headHex mono">{color.hex}</span>
     </th>
   );
-}
+});
+
+// Memoized so that in a large matrix, editing one color or moving the selection
+// only re-renders the cells that actually changed — not all N² of them.
+const Cell = memo(function Cell({ fg, bg, codeBy, cvd, isSel, onSelect }) {
+  const ratio = contrastRatio(fg.hex, bg.hex);
+  const pass = evaluate(ratio)[codeBy];
+  return (
+    <td className="cell">
+      <button
+        type="button"
+        className={`cell__btn ${isSel ? 'is-selected' : ''}`}
+        style={{ background: simulate(bg.hex, cvd), color: simulate(fg.hex, cvd) }}
+        onClick={() => onSelect(fg.id, bg.id)}
+        aria-pressed={isSel}
+        aria-label={`${fg.name} on ${bg.name}, ratio ${formatRatio(ratio)}, ${
+          pass ? 'passes' : 'fails'
+        } selected level`}
+      >
+        <span className="cell__sample" aria-hidden="true">
+          Ag
+        </span>
+        <span className="cell__ratio mono" aria-hidden="true">
+          {ratio.toFixed(2)}
+        </span>
+        <PassFlag pass={pass} />
+      </button>
+    </td>
+  );
+});
 
 export default function ContrastMatrix({ palette, codeBy, cvd, selected, onSelect }) {
   return (
@@ -38,45 +68,25 @@ export default function ContrastMatrix({ palette, codeBy, cvd, selected, onSelec
           {palette.map((fg) => (
             <tr key={fg.id}>
               <Head color={fg} cvd={cvd} scope="row" />
-              {palette.map((bg) => {
-                if (fg.id === bg.id) {
-                  return (
-                    <td key={bg.id} className="cell cell--diag" aria-hidden="true">
-                      <span className="cell__same">—</span>
-                    </td>
-                  );
-                }
-                const ratio = contrastRatio(fg.hex, bg.hex);
-                const ev = evaluate(ratio);
-                const pass = ev[codeBy];
-                const isSel =
-                  selected && selected.fgId === fg.id && selected.bgId === bg.id;
-                return (
-                  <td key={bg.id} className="cell">
-                    <button
-                      type="button"
-                      className={`cell__btn ${isSel ? 'is-selected' : ''}`}
-                      style={{
-                        background: simulate(bg.hex, cvd),
-                        color: simulate(fg.hex, cvd),
-                      }}
-                      onClick={() => onSelect(fg.id, bg.id)}
-                      aria-pressed={Boolean(isSel)}
-                      aria-label={`${fg.name} on ${bg.name}, ratio ${formatRatio(
-                        ratio,
-                      )}, ${pass ? 'passes' : 'fails'} selected level`}
-                    >
-                      <span className="cell__sample" aria-hidden="true">
-                        Ag
-                      </span>
-                      <span className="cell__ratio mono" aria-hidden="true">
-                        {ratio.toFixed(2)}
-                      </span>
-                      <PassFlag pass={pass} />
-                    </button>
+              {palette.map((bg) =>
+                fg.id === bg.id ? (
+                  <td key={bg.id} className="cell cell--diag" aria-hidden="true">
+                    <span className="cell__same">—</span>
                   </td>
-                );
-              })}
+                ) : (
+                  <Cell
+                    key={bg.id}
+                    fg={fg}
+                    bg={bg}
+                    codeBy={codeBy}
+                    cvd={cvd}
+                    isSel={Boolean(
+                      selected && selected.fgId === fg.id && selected.bgId === bg.id,
+                    )}
+                    onSelect={onSelect}
+                  />
+                ),
+              )}
             </tr>
           ))}
         </tbody>
