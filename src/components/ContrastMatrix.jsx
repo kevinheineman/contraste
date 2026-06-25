@@ -6,13 +6,17 @@ import PassFlag from './PassFlag.jsx';
 const Head = memo(function Head({ color, cvd, scope }) {
   return (
     <th scope={scope} className={`matrix__head matrix__head--${scope}`}>
-      <span
-        className="matrix__chip"
-        style={{ background: simulate(color.hex, cvd) }}
-        aria-hidden="true"
-      />
-      <span className="matrix__headName">{color.name || '—'}</span>
-      <span className="matrix__headHex mono">{color.hex}</span>
+      <span className="matrix__headInner">
+        <span
+          className="matrix__chip"
+          style={{ background: simulate(color.hex, cvd) }}
+          aria-hidden="true"
+        />
+        <span className="matrix__headText">
+          <span className="matrix__headName">{color.name || '—'}</span>
+          <span className="matrix__headHex mono">{color.hex}</span>
+        </span>
+      </span>
     </th>
   );
 });

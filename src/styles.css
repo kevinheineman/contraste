@@ -504,19 +504,37 @@ a {
   min-width: 132px;
   padding: 6px 10px 6px 6px;
 }
+.matrix__headInner {
+  display: flex;
+}
+.matrix__head--col .matrix__headInner {
+  flex-direction: column;
+}
+.matrix__head--row .matrix__headInner {
+  flex-direction: row;
+  align-items: stretch;
+  gap: 9px;
+}
 .matrix__chip {
-  display: block;
-  width: 100%;
-  height: 7px;
   border-radius: 4px;
   border: 1px solid var(--border);
+}
+/* Top-row swatch: a thin horizontal band above the name/hex. */
+.matrix__head--col .matrix__chip {
+  width: 100%;
+  height: 7px;
   margin-bottom: 6px;
 }
+/* Left-column swatch: the same thin band, vertical, beside the name/hex. */
 .matrix__head--row .matrix__chip {
-  width: 22px;
-  height: 22px;
-  float: left;
-  margin: 0 8px 0 0;
+  width: 7px;
+  align-self: stretch;
+}
+.matrix__headText {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
 }
 .matrix__headName {
   display: block;
