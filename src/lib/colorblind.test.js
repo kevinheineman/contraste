@@ -11,6 +11,13 @@ describe('simulate severity', () => {
     expect(simulate('#2B6CB0', 'deuteranopia', 1)).not.toBe('#2B6CB0');
   });
 
+  it('interpolates between tabulated steps — half severity is distinct from both ends', () => {
+    const c = '#1E7F4F';
+    const mid = simulate(c, 'deuteranopia', 0.5);
+    expect(mid).not.toBe(c);
+    expect(mid).not.toBe(simulate(c, 'deuteranopia', 1));
+  });
+
   it('achromatopsia collapses to a neutral gray (R≈G≈B)', () => {
     const g = simulate('#C0362C', 'achromatopsia', 1);
     expect(g[1] === g[2] || Math.abs(parseInt(g.slice(1, 3), 16) - parseInt(g.slice(3, 5), 16)) <= 1).toBe(true);

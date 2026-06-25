@@ -38,7 +38,7 @@ All of it is hand-written with **zero runtime color dependencies** and covered b
 ## Prior art & credits
 
 - The contrast-matrix concept is owed to [EightShapes Contrast Grid](https://contrast-grid.eightshapes.com/) by Nathan Curtis. Contraste adds the pair inspector, the accessible-fix solver, the two-algorithm toggle, vision simulation, and token export.
-- Dichromacy simulation uses the linear-RGB matrices of Viénot, Brettel & Mollon (1999); severity blends from normal vision toward full dichromacy (exact at both ends, an approximation between — not a per-severity physiological model). For design review, not a clinical tool.
+- Color-vision simulation uses the per-severity matrices of Machado, Oliveira & Fernandes (2009), interpolated between their tabulated 0.1 steps. For design review, not a clinical tool.
 - APCA by Andrew Somers / [Myndex Research](https://github.com/Myndex/apca-w3) — a draft method that may change.
 
 ## Tech
