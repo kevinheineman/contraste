@@ -6,9 +6,11 @@ import PairDetail from './components/PairDetail.jsx';
 import ExportPanel from './components/ExportPanel.jsx';
 import Icon from './components/Icon.jsx';
 import PassFlag from './components/PassFlag.jsx';
+import Separation from './components/Separation.jsx';
 import { DEFAULT_PALETTE, SAMPLES } from './lib/palettes.js';
 import { encodePalette, decodePalette } from './lib/url.js';
 import { toHex, parseHex } from './lib/color.js';
+import { DEFAULT_LEVEL, findLevel } from './lib/metrics.js';
 
 const ADD_COLORS = ['#6B7280', '#0EA5E9', '#16A34A', '#D946EF', '#F59E0B', '#EF4444'];
 
@@ -29,18 +31,14 @@ function firstPair(palette) {
   return { fgId: palette[0].id, bgId: (palette[2] || palette[1]).id };
 }
 
-const LEVEL_LABEL = {
-  aaNormal: 'AA normal · 4.5:1',
-  aaLarge: 'AA large · 3:1',
-  aaaNormal: 'AAA normal · 7:1',
-  ui: 'UI & graphics · 3:1',
-};
-
-function Legend({ codeBy }) {
+function Legend({ level }) {
+  const lv = findLevel(level);
   return (
     <div className="legend">
       <span className="legend__title">Cells coded by</span>
-      <strong className="legend__level">{LEVEL_LABEL[codeBy]}</strong>
+      <strong className="legend__level">
+        {lv.short} · {lv.req}
+      </strong>
       <div className="legend__keys">
         <span className="legend__key">
           <PassFlag pass />
@@ -60,7 +58,9 @@ export default function App() {
   const [selected, setSelected] = useState(() => firstPair(palette));
   const [theme, setTheme] = useState('light');
   const [cvd, setCvd] = useState('none');
-  const [codeBy, setCodeBy] = useState('aaNormal');
+  const [severity, setSeverity] = useState(1);
+  const [algorithm, setAlgorithm] = useState('wcag');
+  const [level, setLevel] = useState('aaNormal');
   const [shareLabel, setShareLabel] = useState('Share');
 
   // Theme: hydrate from storage / system once, then reflect to <html>.
@@ -173,10 +173,17 @@ export default function App() {
         <Toolbar
           theme={theme}
           onToggleTheme={() => setTheme((t) => (t === 'dark' ? 'light' : 'dark'))}
+          algorithm={algorithm}
+          onAlgorithm={(a) => {
+            setAlgorithm(a);
+            setLevel(DEFAULT_LEVEL[a]);
+          }}
+          level={level}
+          onLevel={setLevel}
           cvd={cvd}
           onCvd={setCvd}
-          codeBy={codeBy}
-          onCodeBy={setCodeBy}
+          severity={severity}
+          onSeverity={setSeverity}
           onShare={share}
           shareLabel={shareLabel}
           samples={SAMPLES}
@@ -193,18 +200,29 @@ export default function App() {
               onAdd={addColor}
               onImport={importColors}
             />
-            <Legend codeBy={codeBy} />
+            <Legend level={level} />
+            <Separation palette={palette} cvd={cvd} severity={severity} />
           </aside>
 
           <section className="layout__main" id="matrix">
             <ContrastMatrix
               palette={palette}
-              codeBy={codeBy}
+              algorithm={algorithm}
+              level={level}
               cvd={cvd}
+              severity={severity}
               selected={selected}
               onSelect={selectPair}
             />
-            <PairDetail palette={palette} selected={selected} onApplyFix={applyFix} />
+            <PairDetail
+              palette={palette}
+              selected={selected}
+              onApplyFix={applyFix}
+              algorithm={algorithm}
+              level={level}
+              cvd={cvd}
+              severity={severity}
+            />
           </section>
         </div>
 

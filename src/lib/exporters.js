@@ -1,5 +1,6 @@
 // Turn the working palette into copy-pasteable artefacts.
 import { contrastRatio, evaluate } from './contrast.js';
+import { apcaAbs } from './apca.js';
 
 /** Make a CSS-safe token name from a color's display name. */
 const slug = (name, i) => {
@@ -60,6 +61,7 @@ export function toReportJson(palette) {
         foreground: fg.hex.toLowerCase(),
         background: bg.hex.toLowerCase(),
         ratio: Math.round(ratio * 100) / 100,
+        apcaLc: Math.round(apcaAbs(fg.hex, bg.hex)),
         aa: e.aaNormal,
         aaLarge: e.aaLarge,
         aaa: e.aaaNormal,

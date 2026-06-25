@@ -1,20 +1,18 @@
 import Icon from './Icon.jsx';
 import { CVD_TYPES } from '../lib/colorblind.js';
-
-const CODE_OPTIONS = [
-  { id: 'aaNormal', label: 'AA · Normal (4.5:1)' },
-  { id: 'aaLarge', label: 'AA · Large (3:1)' },
-  { id: 'aaaNormal', label: 'AAA · Normal (7:1)' },
-  { id: 'ui', label: 'UI & graphics (3:1)' },
-];
+import { ALGORITHMS, LEVELS } from '../lib/metrics.js';
 
 export default function Toolbar({
   theme,
   onToggleTheme,
+  algorithm,
+  onAlgorithm,
+  level,
+  onLevel,
   cvd,
   onCvd,
-  codeBy,
-  onCodeBy,
+  severity,
+  onSeverity,
   onShare,
   shareLabel,
   samples,
@@ -25,9 +23,20 @@ export default function Toolbar({
     <div className="toolbar">
       <div className="toolbar__group">
         <label className="field">
+          <span className="field__label">Algorithm</span>
+          <select className="select" value={algorithm} onChange={(e) => onAlgorithm(e.target.value)}>
+            {ALGORITHMS.map((a) => (
+              <option key={a.id} value={a.id}>
+                {a.label}
+              </option>
+            ))}
+          </select>
+        </label>
+
+        <label className="field">
           <span className="field__label">Pass level</span>
-          <select className="select" value={codeBy} onChange={(e) => onCodeBy(e.target.value)}>
-            {CODE_OPTIONS.map((o) => (
+          <select className="select" value={level} onChange={(e) => onLevel(e.target.value)}>
+            {LEVELS[algorithm].map((o) => (
               <option key={o.id} value={o.id}>
                 {o.label}
               </option>
@@ -45,6 +54,22 @@ export default function Toolbar({
             ))}
           </select>
         </label>
+
+        {cvd !== 'none' && (
+          <label className="field field--slider">
+            <span className="field__label">Severity · {Math.round(severity * 100)}%</span>
+            <input
+              type="range"
+              className="slider"
+              min="0"
+              max="1"
+              step="0.05"
+              value={severity}
+              onChange={(e) => onSeverity(Number(e.target.value))}
+              aria-label="Vision deficiency severity"
+            />
+          </label>
+        )}
 
         <label className="field">
           <span className="field__label">Sample</span>

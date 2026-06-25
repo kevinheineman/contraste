@@ -980,3 +980,123 @@ a {
     border-radius: 0;
   }
 }
+
+/* ---- severity slider ---- */
+.field--slider {
+  min-width: 140px;
+}
+.slider {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  margin: 9px 0;
+  border-radius: 999px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  cursor: pointer;
+}
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+}
+.slider::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent);
+  border: 2px solid var(--surface);
+  cursor: pointer;
+}
+.slider:focus-visible {
+  box-shadow: var(--ring);
+}
+
+/* ---- low-vision preview toggle ---- */
+.detail__previewWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+}
+.detail__preview {
+  transition: filter 0.2s ease;
+}
+.detail__preview.is-lowvision {
+  filter: blur(1.7px) contrast(0.82);
+}
+.preview__toggle {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font: inherit;
+  font-size: 12.5px;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.preview__toggle.is-on {
+  background: var(--accent-soft);
+  border-color: var(--accent);
+  color: var(--accent-strong);
+}
+
+/* ---- color-separation panel ---- */
+.separation__ok {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  margin: 0;
+  font-size: 13px;
+  color: var(--pass-text);
+}
+.separation__intro {
+  margin: 0 0 10px;
+  font-size: 12.5px;
+  color: var(--text-muted);
+}
+.separation__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.separation__pair {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+.separation__sw {
+  width: 18px;
+  height: 18px;
+  border-radius: 5px;
+  border: 1px solid var(--border-strong);
+  flex: none;
+}
+.separation__sw + .separation__sw {
+  margin-left: -13px;
+}
+.separation__names {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.separation__more {
+  margin: 9px 0 0;
+  font-size: 12px;
+  color: var(--text-muted);
+}

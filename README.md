@@ -14,17 +14,22 @@ Most contrast checkers test one pair at a time. Real palettes have _n²_ pairs, 
 
 ## Features
 
-- **Contrast matrix** — every foreground × background pair with its exact WCAG ratio and AA / AAA pass-fail badges (normal, large, and the 3:1 UI-component threshold). The sample text is rendered _in the actual colors_, so you see legibility, not just a number.
-- **Pair inspector** — select any cell for a live UI preview (heading, body, button, link) and the full WCAG checklist.
-- **Nearest accessible fix** — when a pair fails, Contraste searches OKLCH lightness for the _smallest_ change to either color that clears the target, preserving hue and chroma. One click applies it to the palette.
-- **Color-vision simulation** — preview each pair under protanopia, deuteranopia, and tritanopia.
-- **Export** — CSS custom properties, a Tailwind color config, [W3C design tokens](https://www.designtokens.org/), or a machine-readable contrast report you can diff in CI.
+- **Contrast matrix** — every foreground × background pair with its exact contrast and pass-fail flags. The sample text is rendered _in the actual colors_, so you see legibility, not just a number.
+- **Two algorithms** — switch between **WCAG 2.1** ratios (AA, AAA, UI 3:1, and **Section 508**, which incorporates WCAG 2.0 AA by reference) and **APCA** — the perceptual-lightness method (Lc) that is the candidate for WCAG 3. WCAG 2's ratio misjudges plenty of pairs, especially on dark UI; APCA is surfaced as a labelled preview.
+- **Pair inspector** — select any cell for a live UI preview and the full conformance checklist for the active algorithm.
+- **Nearest accessible fix** — when a pair fails, Contraste searches OKLCH lightness for the _smallest_ change to either color that clears AA, preserving hue and chroma. One click applies it.
+- **Vision simulation with severity** — preview protan / deutan / tritan deficiency with a **0–100% severity slider** (most color-blind people are partial, not fully dichromatic), plus an **achromatopsia / grayscale** mode.
+- **Distinguishability check** — beyond contrast: flags palette colors that collapse to near-identical under the active deficiency — the thing that breaks chart series and red/green status colors.
+- **Low-vision preview** — a blur + reduced-contrast lens on the inspector sample, for reduced acuity.
+- **Export** — CSS custom properties, a Tailwind color config, [W3C design tokens](https://www.designtokens.org/), or a machine-readable contrast report (with APCA Lc) you can diff in CI.
 - **Shareable** — the whole palette lives in the URL, so any palette is a link.
-- **Accessible by construction** — the tool itself is held to WCAG AA in both light and dark themes, with full keyboard support, visible focus, status conveyed by icon + text (never color alone), and `prefers-reduced-motion` respected.
+- **Accessible by construction** — held to WCAG AA in both light and dark themes, with visible focus, status conveyed by icon + text (never color alone), and `prefers-reduced-motion` respected.
 
 ## How the contrast is computed
 
 Ratios use the WCAG 2.1 relative-luminance definition — sRGB channels linearized with the `0.03928` threshold, weighted `0.2126 / 0.7152 / 0.0722`, combined as `(L₁ + 0.05) / (L₂ + 0.05)`. This matches [WebAIM's Contrast Checker](https://webaim.org/resources/contrastchecker/) to the decimal, so the numbers are the ones your auditors will quote.
+
+**APCA** is implemented from the public [APCA-W3](https://github.com/Myndex/apca-w3) constants and unit-tested against its reference values (black-on-white `Lc 106`, white-on-black `Lc −108`).
 
 The "nearest accessible fix" works in a different space — [OKLab / OKLCH](https://bottosson.github.io/posts/oklab/) — because perceptual uniformity makes "change the color as little as possible" meaningful. The two color pipelines deliberately use different sRGB linearizations (WCAG's `0.03928` vs. the sRGB-standard `0.04045`); the reasoning is documented in [`src/lib/color.js`](src/lib/color.js).
 
@@ -32,8 +37,9 @@ All of it is hand-written with **zero runtime color dependencies** and covered b
 
 ## Prior art & credits
 
-- The contrast-matrix concept is owed to [EightShapes Contrast Grid](https://contrast-grid.eightshapes.com/) by Nathan Curtis. Contraste adds the pair inspector, the accessible-fix solver, CVD simulation, and token export.
-- Color-vision simulation uses the linear-RGB matrices of Viénot, Brettel & Mollon (1999). It is an _approximation_ for design review, not a clinical tool.
+- The contrast-matrix concept is owed to [EightShapes Contrast Grid](https://contrast-grid.eightshapes.com/) by Nathan Curtis. Contraste adds the pair inspector, the accessible-fix solver, the two-algorithm toggle, vision simulation, and token export.
+- Dichromacy simulation uses the linear-RGB matrices of Viénot, Brettel & Mollon (1999); severity blends from normal vision toward full dichromacy (exact at both ends, an approximation between — not a per-severity physiological model). For design review, not a clinical tool.
+- APCA by Andrew Somers / [Myndex Research](https://github.com/Myndex/apca-w3) — a draft method that may change.
 
 ## Tech
 
