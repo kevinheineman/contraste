@@ -53,10 +53,19 @@ function ColorRow({ color, onUpdate, onRemove, canRemove }) {
   );
 }
 
-export default function PaletteEditor({ palette, onUpdate, onRemove, onAdd, onImport }) {
+export default function PaletteEditor({ palette, onUpdate, onRemove, onAdd, onImport, onPick }) {
   const [importText, setImportText] = useState('');
   const [importOpen, setImportOpen] = useState(false);
   const parsed = parseColorList(importText);
+  const canPick = typeof window !== 'undefined' && 'EyeDropper' in window;
+  const pick = async () => {
+    try {
+      const { sRGBHex } = await new window.EyeDropper().open();
+      onPick(sRGBHex);
+    } catch {
+      /* user dismissed the eyedropper */
+    }
+  };
 
   const handleImport = () => {
     if (parsed.length) {
@@ -97,6 +106,17 @@ export default function PaletteEditor({ palette, onUpdate, onRemove, onAdd, onIm
         >
           Import…
         </button>
+        {canPick && (
+          <button
+            type="button"
+            className="icon-btn"
+            onClick={pick}
+            aria-label="Pick a color from your screen"
+            title="Eyedropper"
+          >
+            <Icon name="dropper" />
+          </button>
+        )}
       </div>
 
       {importOpen && (

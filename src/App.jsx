@@ -7,6 +7,7 @@ import ExportPanel from './components/ExportPanel.jsx';
 import Icon from './components/Icon.jsx';
 import PassFlag from './components/PassFlag.jsx';
 import Separation from './components/Separation.jsx';
+import MatrixSummary from './components/MatrixSummary.jsx';
 import { DEFAULT_PALETTE, SAMPLES } from './lib/palettes.js';
 import { encodePalette, decodePalette } from './lib/url.js';
 import { toHex, parseHex } from './lib/color.js';
@@ -111,6 +112,15 @@ export default function App() {
     });
   }, []);
 
+  const addColorHex = useCallback((hex) => {
+    const norm = parseHex(hex);
+    if (!norm) return;
+    setPalette((p) => [
+      ...p,
+      { id: newId(), name: `Color ${p.length + 1}`, hex: toHex(norm) },
+    ]);
+  }, []);
+
   const importColors = useCallback((list) => {
     const next = list.map((c) => ({
       id: newId(),
@@ -199,12 +209,14 @@ export default function App() {
               onRemove={removeColor}
               onAdd={addColor}
               onImport={importColors}
+              onPick={addColorHex}
             />
             <Legend level={level} />
             <Separation palette={palette} cvd={cvd} severity={severity} />
           </aside>
 
           <section className="layout__main" id="matrix">
+            <MatrixSummary palette={palette} algorithm={algorithm} level={level} />
             <ContrastMatrix
               palette={palette}
               algorithm={algorithm}

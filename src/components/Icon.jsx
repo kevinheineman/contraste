@@ -14,6 +14,7 @@ const PATHS = {
   wand: 'M6 21 17 10M14 7l3 3M19 3l.6 1.6L21.2 5.2l-1.6.6L19 7.4l-.6-1.6L16.8 5.2l1.6-.6zM5 12l.5 1.3 1.3.5-1.3.5L5 16l-.5-1.4L3.2 14.3l1.3-.5z',
   chevron: 'M6 9l6 6 6-6',
   eye: 'M1 12s4-7.5 11-7.5S23 12 23 12s-4 7.5-11 7.5S1 12 1 12z',
+  dropper: 'M2 22l1-4L14.5 6.5l3 3L6 21l-4 1zM15.5 5.5l2-2a2.1 2.1 0 0 1 3 3l-2 2z',
 };
 
 export default function Icon({ name, size = 16, className }) {
