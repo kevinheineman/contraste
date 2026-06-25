@@ -551,12 +551,15 @@ a {
   color: var(--text-muted);
 }
 .cell__btn {
+  /* An inset edge (not a border) so the corner flag can sit flush over it. */
+  --cell-edge: inset 0 0 0 1px rgba(128, 128, 128, 0.22);
   position: relative;
   overflow: hidden;
   width: 92px;
   height: 58px;
-  border: 1px solid rgba(128, 128, 128, 0.22);
+  border: none;
   border-radius: var(--radius-sm);
+  box-shadow: var(--cell-edge);
   cursor: pointer;
   display: flex;
   flex-direction: column;
@@ -569,10 +572,10 @@ a {
 }
 .cell__btn:hover {
   transform: translateY(-1px);
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--cell-edge), var(--shadow-md);
 }
 .cell__btn.is-selected {
-  box-shadow: 0 0 0 2px var(--surface), 0 0 0 4px var(--accent);
+  box-shadow: var(--cell-edge), 0 0 0 2px var(--surface), 0 0 0 4px var(--accent);
 }
 .cell__sample {
   font-size: 17px;
@@ -589,12 +592,19 @@ a {
   display: block;
   flex: none;
 }
-.cell__pip path {
+.cell__pip-tri {
   fill: currentColor;
 }
-.cell__pip line {
+.cell__pip-edge {
   stroke: #ffffff;
-  stroke-width: 2.4;
+  stroke-width: 1.2;
+}
+.cell__pip-mark {
+  fill: none;
+  stroke: #ffffff;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
 }
 .cell__pip.is-pass {
   color: var(--pip-pass);
