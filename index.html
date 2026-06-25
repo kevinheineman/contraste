@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contraste — accessible color contrast auditor</title>
+    <meta
+      name="description"
+      content="Audit a color palette against WCAG 2.1. Every text-on-background pair, AA/AAA pass-fail, colorblindness simulation, one-click accessible fixes, and token export."
+    />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#f5f7f9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0d1117" media="(prefers-color-scheme: dark)" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Social share -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://contraste.vercel.app/" />
+    <meta property="og:title" content="Contraste — accessible color, verified" />
+    <meta
+      property="og:description"
+      content="A WCAG contrast matrix with live previews, colorblindness simulation, one-click accessible fixes, and design-token export."
+    />
+    <meta property="og:image" content="https://contraste.vercel.app/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Contraste contrast matrix" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content="https://contraste.vercel.app/og.png" />
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Set theme before paint to avoid a flash of the wrong mode -->
+    <script>
+      try {
+        var t =
+          localStorage.getItem('contraste-theme') ||
+          (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = t;
+      } catch (e) {}
+    </script>
+    <style>
+      html {
+        background: #f5f7f9;
+      }
+      html[data-theme='dark'] {
+        background: #0d1117;
+      }
+      #root {
+        min-height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
