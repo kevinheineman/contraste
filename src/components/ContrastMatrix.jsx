@@ -1,6 +1,6 @@
 import { simulate } from '../lib/colorblind.js';
 import { contrastRatio, evaluate, formatRatio } from '../lib/contrast.js';
-import Icon from './Icon.jsx';
+import PassFlag from './PassFlag.jsx';
 
 function Head({ color, cvd, scope }) {
   return (
@@ -72,12 +72,7 @@ export default function ContrastMatrix({ palette, codeBy, cvd, selected, onSelec
                       <span className="cell__ratio mono" aria-hidden="true">
                         {ratio.toFixed(2)}
                       </span>
-                      <span
-                        className={`cell__pip ${pass ? 'is-pass' : 'is-fail'}`}
-                        aria-hidden="true"
-                      >
-                        <Icon name={pass ? 'check' : 'x'} size={11} />
-                      </span>
+                      <PassFlag pass={pass} />
                     </button>
                   </td>
                 );

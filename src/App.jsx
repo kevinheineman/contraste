@@ -5,6 +5,7 @@ import ContrastMatrix from './components/ContrastMatrix.jsx';
 import PairDetail from './components/PairDetail.jsx';
 import ExportPanel from './components/ExportPanel.jsx';
 import Icon from './components/Icon.jsx';
+import PassFlag from './components/PassFlag.jsx';
 import { DEFAULT_PALETTE, SAMPLES } from './lib/palettes.js';
 import { encodePalette, decodePalette } from './lib/url.js';
 import { toHex, parseHex } from './lib/color.js';
@@ -43,15 +44,11 @@ function Legend({ codeBy }) {
       <strong className="legend__level">{LEVEL_LABEL[codeBy]}</strong>
       <div className="legend__keys">
         <span className="legend__key">
-          <span className="cell__pip is-pass">
-            <Icon name="check" size={11} />
-          </span>
+          <PassFlag pass />
           Passes
         </span>
         <span className="legend__key">
-          <span className="cell__pip is-fail">
-            <Icon name="x" size={11} />
-          </span>
+          <PassFlag pass={false} />
           Fails
         </span>
       </div>

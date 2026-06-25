@@ -552,6 +552,7 @@ a {
 }
 .cell__btn {
   position: relative;
+  overflow: hidden;
   width: 92px;
   height: 58px;
   border: 1px solid rgba(128, 128, 128, 0.22);
@@ -583,25 +584,29 @@ a {
   opacity: 0.92;
 }
 .cell__pip {
-  width: 17px;
-  height: 17px;
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  color: var(--on-pip);
+  width: 22px;
+  height: 22px;
+  display: block;
   flex: none;
 }
-/* Absolute positioning is matrix-cell-specific; elsewhere (legend) it's inline. */
-.cell__btn .cell__pip {
-  position: absolute;
-  top: 5px;
-  right: 5px;
+.cell__pip path {
+  fill: currentColor;
+}
+.cell__pip line {
+  stroke: #ffffff;
+  stroke-width: 2.4;
 }
 .cell__pip.is-pass {
-  background: var(--pip-pass);
+  color: var(--pip-pass);
 }
 .cell__pip.is-fail {
-  background: var(--pip-fail);
+  color: var(--pip-fail);
+}
+/* The flag hugs the matrix cell's top-right corner; in the legend it sits inline. */
+.cell__btn .cell__pip {
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 /* ---- pair detail ---- */
@@ -899,6 +904,23 @@ a {
 .site-footer__credit {
   font-size: 12px;
   opacity: 0.85;
+}
+/* Footer links match the ROI calculator's teal for cross-project consistency. */
+.site-footer a {
+  color: #0a6a70;
+  font-weight: 500;
+  text-decoration-color: var(--border);
+  text-underline-offset: 2px;
+}
+.site-footer a:hover {
+  text-decoration-color: #0c7e84;
+}
+/* The light-mode teal fails AA on the dark canvas, so lift it while keeping the hue. */
+[data-theme='dark'] .site-footer a {
+  color: #45bcc2;
+}
+[data-theme='dark'] .site-footer a:hover {
+  text-decoration-color: #6fd3d8;
 }
 
 /* ---- responsive ---- */
