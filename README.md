@@ -2,7 +2,7 @@
 
 **Accessible color, verified.** A WCAG 2.1 contrast auditor for design-system palettes: see every text-on-background pair at once, get one-click accessible fixes, preview color-vision deficiencies, and export the result as design tokens.
 
-🔗 **Live:** https://contraste.vercel.app · Built by [Kevin Heineman](https://www.kevinheineman.com/)
+🔗 **Live:** https://get-contraste.vercel.app · Built by [Kevin Heineman](https://www.kevinheineman.com/)
 
 ![Contraste — a contrast matrix with a pair inspector and accessible-fix suggestions](public/og.png)
 
