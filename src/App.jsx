@@ -262,7 +262,15 @@ export default function App() {
           <a href="https://contrast-grid.eightshapes.com/" target="_blank" rel="noreferrer">
             EightShapes Contrast Grid
           </a>
-          . CVD simulation after Viénot, Brettel &amp; Mollon (1999).
+          . CVD simulation after{' '}
+          <a
+            href="https://www.inf.ufrgs.br/~oliveira/pubs_files/CVD_Simulation/CVD_Simulation.html"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Machado, Oliveira &amp; Fernandes (2009)
+          </a>
+          .
         </p>
       </footer>
     </>

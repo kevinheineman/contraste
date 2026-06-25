@@ -2,6 +2,7 @@ import { memo, useRef } from 'react';
 import { simulate } from '../lib/colorblind.js';
 import { metricValue, cellValue, formatMetric, passesLevel } from '../lib/metrics.js';
 import PassFlag from './PassFlag.jsx';
+import Icon from './Icon.jsx';
 
 const Head = memo(function Head({ color, cvd, severity, scope }) {
   return (
@@ -55,7 +56,7 @@ const Cell = memo(function Cell({
         } selected level`}
       >
         <span className="cell__sample" aria-hidden="true">
-          Ag
+          {level === 'ui' ? <Icon name="star" size={18} /> : 'Ag'}
         </span>
         <span className="cell__ratio mono" aria-hidden="true">
           {cellValue(algorithm, value)}

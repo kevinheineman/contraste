@@ -74,7 +74,7 @@ const ogSvg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"
   <text x="152" y="130" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="62" fill="#11181c">Contraste</text>
   <text x="82" y="208" font-family="Arial, Helvetica, sans-serif" font-size="30" fill="#586470">Accessible color, verified.</text>
   <text x="82" y="320" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="40" fill="#11181c">Audit every contrast pair.</text>
-  <text x="82" y="372" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="40" fill="#3b5bd9">Fix the ones that fail.</text>
+  <text x="82" y="372" font-family="Arial, Helvetica, sans-serif" font-weight="700" font-size="40" fill="#0a6a70">Fix the ones that fail.</text>
   <text x="82" y="548" font-family="Arial, Helvetica, sans-serif" font-size="23" fill="#586470">WCAG 2.1 · AA / AAA · color-vision · CSS · Tailwind · design tokens</text>
   ${grid}
 </svg>`;
